@@ -29,7 +29,3 @@ class ThemeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Theme
         fields = "__all__"
-
-
-class EmailSerializer(serializers.Serializer):
-    ...

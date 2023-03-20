@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
+import Popup from '../UI/popup/Popup';
 import FormInput from '../UI/FormInput';
 import SubmitButton from "./SubmitButton.jsx";
 
@@ -9,7 +10,7 @@ import { useDispatch } from 'react-redux';
 
 const Form = styled.form``
 
-function ThemeForm() {
+function ThemeForm({active, setActive}) {
     // const [title, setTitle] = useState('');
     // const [description, setDescription] = useState('');
     // const [image, setImage] = useState('');
@@ -45,14 +46,16 @@ function ThemeForm() {
                 
             //     <SubmitButton>Добавить курс</SubmitButton> */}
             // </form>
-            <form onSubmit={submitForm}>
-                <FormInput placeholder="id курса (ставим 1)" type="text" name="course_id" value={course_id} onChange={event => setCourse_id(event.target.value)} required/>
-                <FormInput placeholder="Название темы" type="text" name="title" value={title} onChange={event => setTitle(event.target.value)} required/>
-                <FormInput placeholder="Контент" type="text" name="content" value={content} onChange={event => setContent(event.target.value)} required/>
-                <FormInput placeholder="видео URL" type="text" name="videoUrl" value={videoUrl} onChange={event => setVideoUrl(event.target.value)} />
-                <FormControlLabel control={<Checkbox name='isFree'/>} label="Бесплатная тема" />
-                <SubmitButton>Добавить тему</SubmitButton>
-            </form>
+            <Popup active={active} setActive={setActive}>
+                <form onSubmit={submitForm}>
+                    <FormInput placeholder="id курса (ставим 1)" type="text" name="course_id" value={course_id} onChange={event => setCourse_id(event.target.value)} required/>
+                    <FormInput placeholder="Название темы" type="text" name="title" value={title} onChange={event => setTitle(event.target.value)} required/>
+                    <FormInput placeholder="Контент" type="text" name="content" value={content} onChange={event => setContent(event.target.value)} required/>
+                    <FormInput placeholder="видео URL" type="text" name="videoUrl" value={videoUrl} onChange={event => setVideoUrl(event.target.value)} />
+                    <FormControlLabel control={<Checkbox name='isFree'/>} label="Бесплатная тема" />
+                    <SubmitButton>Добавить тему</SubmitButton>
+                </form>
+            </Popup>
     );
 }
 

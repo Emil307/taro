@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { useSelector } from 'react-redux';
+import MailForm from "./MailForm";
 import hand from '../images/hand.png';
 import introBg from '../images/intro-bg.jpg';
 
@@ -114,8 +116,19 @@ const Desktop = styled.img`
 `
 
 function Intro() {
+  const [active, setActive] = useState(false);
+
+  const isLogin = useSelector(state => state.isLogin);
+
+  function sendMail() {
+    console.log(isLogin);
+  }
+
   return (
     <Section>
+
+      <MailForm active={active} setActive={setActive}/>
+      
       <Container>
         <Offer>
           <SubTitleWrapper>
@@ -139,7 +152,12 @@ function Intro() {
               По окончании курса вы получите навык работы с картами и возможность помогать людям, проводя консультации в области изотерики
             </Text>
           </Description>
-          <Button>Записаться на курс</Button>
+          {isLogin
+          ?
+          <Button onClick={sendMail}>Записаться на курс</Button>
+          :
+          <Button onClick={() => setActive(true)}>Записаться на курс</Button>
+          }
         </Offer>
         <Desktop src={hand}/>
       </Container>

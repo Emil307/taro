@@ -3,6 +3,7 @@ import { createStore } from 'redux';
 const defaultState = {
   token: "",
   role: "",
+  isLogin: false,
 }
 
 const reducer = (state = defaultState, action) => {
@@ -11,6 +12,8 @@ const reducer = (state = defaultState, action) => {
       return {...state, token: action.payload}
     case "SET_ROLE":
       return {...state, role: action.payload}
+    case "SET_ISLOGIN":
+      return {...state, isLogin: action.payload}
     default:
       return state;
   }

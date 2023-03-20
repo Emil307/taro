@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
-import Popup from "../UI/popup/Popup";
 import ThemesList from './ThemesList';
 import AddTheme from "../UI/AddTheme.jsx";
 import ThemeForm from "../UI/ThemeForm.jsx";
@@ -107,7 +106,7 @@ const Profile = ({active, setActive, logout}) => {
             <ThemesUl>
               <ThemesList/>
               {role == "admin" ? <AddTheme onClick={() => setFormActive(true)}/> : <></>}
-              <Popup active={formActive} setActive={setFormActive}><ThemeForm/></Popup>
+              <ThemeForm active={formActive} setActive={setFormActive}/>
             </ThemesUl>
             <ThemeContent></ThemeContent>
         </Course>

@@ -16,7 +16,7 @@ const Head = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  z-index: 1000;
+  z-index: 99;
 `
 
 const Button = styled.a`
@@ -89,10 +89,11 @@ const Header = () => {
     .then (response => {
       response = JSON.parse(response);
       if (response) {
+        setIsLogin(true);
         dispatch({type: "UPDATE_TOKEN", payload: token});
+        dispatch({type: "SET_ISLOGIN", payload: true});
         dispatch({type: "SET_ROLE", payload: response.role});
         setRole(response.role);
-        setIsLogin(true);
         setLoginPopupActive(false);
       }
     })

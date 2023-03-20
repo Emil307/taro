@@ -15,9 +15,9 @@ const Input = styled.textarea`
   color: #000;
 `
 
-const TextArea = ({placeholder, name, type}) => {
+const TextArea = ({placeholder, name}) => {
   return (
-    <Input placeholder={placeholder} name={name} type={type}></Input>
+    <Input placeholder={placeholder} name={name}></Input>
   )
 }
 
