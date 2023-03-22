@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import styled from "styled-components";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
@@ -25,10 +25,14 @@ const Title = styled.button`
 `
 
 function Theme(theme) {
-  const role = useSelector(state => state.role);
+  const [role, setRole] = useState(useSelector(state => state.role));
+
+  useEffect(() => {
+    setRole(localStorage.getItem('role'));
+  }, []);
 
   return (
-    <>
+    <a href={'/themes' + '/' + theme.theme.id}>
         <Container>
           <Title>{theme.theme.title}</Title>
           {role === "admin"
@@ -43,7 +47,7 @@ function Theme(theme) {
           <></>
           }
         </Container>
-    </>
+    </a>
   );
 }
 

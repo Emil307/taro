@@ -31,7 +31,7 @@ function MailForm({active, setActive}) {
   return (
     <Popup active={active} setActive={setActive}>
       <form onSubmit={submitForm}>
-        <FormInput placeholder='E-mail*' type='email' name='email' value={email} onChange={event => setEmail(event.target.value)} required/>
+        <FormInput placeholder='E-mail*' type='email' name='email' value={email} onChange={event => setEmail(event.target.value)} required />
         <FormInput placeholder='Имя' type='text' name='name' value={name} onChange={event => setName(event.target.value)} />
         <FormInput placeholder='Фамилия' type='text' name='surname' value={surname} onChange={event => setSurname(event.target.value)} />
         <TextArea placeholder='Сообщение' name='message' value={message} onChange={event => setMessage(event.target.value)} />

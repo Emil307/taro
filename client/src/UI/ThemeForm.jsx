@@ -25,7 +25,6 @@ function ThemeForm({active, setActive}) {
 
     function submitForm(event) {
         const formData = new FormData(event.target);
-         event.preventDefault();
 
         fetch("http://127.0.0.1:8000/api/v1/themes", {
             method : 'POST',
@@ -35,6 +34,8 @@ function ThemeForm({active, setActive}) {
         .then(response => {
             response = JSON.parse(response);
         })
+
+
     }
 
     return (

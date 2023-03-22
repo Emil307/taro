@@ -23,6 +23,7 @@ class UserList(views.APIView):
     authentication_classes = [TokenAuthentication]
 
     def get(self, request):
+        print(request.user.is_authenticated)
         return Response({
             'users': UserSerializer(User.objects.all(), many=True).data
         })
@@ -50,11 +51,11 @@ class ThemesByCourseIdAPIView(generics.ListAPIView):
 
 class SendMessageView(views.APIView):
     permission_classes = [AllowAny]
+    authentication_classes = [TokenAuthentication]
 
     def post(self, request: Request):
         user: User
         data = request.data
-        print(data['message'])
         user = request.user
         if user.is_authenticated:
             message = {
@@ -64,7 +65,12 @@ class SendMessageView(views.APIView):
                 "role": user.role
             }
         else:
-            message = data['message']
+            message = dict(
+                name=data['name'],
+                surname=data['surname'],
+                email=data['email'],
+                message=data['message'],
+            )
 
         send_to_telegram(message=message)        
 

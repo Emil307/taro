@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import GlobalStyles from './styles/global';
 import './styles/fonts.css';
 import Home from './pages/Home';
+import ThemePage from './pages/ThemePage';
 
 function App() {
 
@@ -10,6 +11,7 @@ function App() {
     <>
       <Routes>
         <Route path='/' element={<Home/>}></Route>
+        <Route path={'/themes' + '/:id'} element={ <ThemePage/> }/>
       </Routes>
       <GlobalStyles/>
     </>

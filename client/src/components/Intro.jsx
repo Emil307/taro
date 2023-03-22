@@ -119,9 +119,15 @@ function Intro() {
   const [active, setActive] = useState(false);
 
   const isLogin = useSelector(state => state.isLogin);
+  const token = useSelector(state => state.token);
 
-  function sendMail() {
-    console.log(isLogin);
+  function sendMail(token) {
+    // const formData = new FormData(event.target);
+    // event.preventDefault();
+    fetch("http://127.0.0.1:8000/api/v1/send-message/", {
+      method : 'POST',
+      headers : token
+    })
   }
 
   return (
@@ -154,7 +160,8 @@ function Intro() {
           </Description>
           {isLogin
           ?
-          <Button onClick={sendMail}>Записаться на курс</Button>
+          // <Button onClick={sendMail(token)}>Записаться на курс</Button>
+          <Button onClick={() => setActive(true)}>Записаться на курс</Button>
           :
           <Button onClick={() => setActive(true)}>Записаться на курс</Button>
           }

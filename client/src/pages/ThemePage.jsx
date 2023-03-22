@@ -1,10 +1,12 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useThemes } from '../hooks/useThemes';
+import { RoleContext } from '../components/Header';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import ThemesList from './ThemesList';
-import AddTheme from "../UI/AddTheme.jsx";
-import ThemeForm from "../UI/ThemeForm.jsx";
-import { RoleContext } from './Header.jsx';
-import { NameContext } from './Header.jsx';
+import ThemesList from '../components/ThemesList';
+import ThemeForm from '../UI/ThemeForm';
+import AddTheme from '../UI/AddTheme';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import LogoutIcon from '@mui/icons-material/Logout';
 
@@ -70,47 +72,53 @@ const ThemesUl = styled.div`
 
 const ThemeContent = styled.div``
 
-const Profile = ({active, setActive, logout, children}) => {
+function ThemePage() {
   const [formActive, setFormActive] = useState(false);
+  const [role, setRole] = useState(useSelector(state => state.role));
 
-  let role = useContext(RoleContext);
-  const name = useContext(NameContext);
-  function logoutFunc() {
-    window.location.reload()
-    logout();
-    setActive(false);
-    localStorage.clear();
-  }
+  const {id} = useParams();
+  const themes = useThemes().themes;
+  let theme = {};
+
+  const dispatch = useDispatch();
+  const isLogin = useSelector(state => state.isLogin);
 
   useEffect(() => {
-    role = localStorage.getItem('role');
+    setRole(localStorage.getItem('role'));
   }, [])
+ 
+  for (let i = 0; i < themes.length; i++) {
+    if (themes[i].id == id) {
+      theme = themes[i];
+      break;
+    }
+  }
 
-  function closeProfile() {
-    setActive(false);
-    localStorage.removeItem('profile');
+  function logoutFunc() {
+    dispatch({type: "SET_ISLOGIN", payload: false});
+    localStorage.clear();
   }
 
   return (
     <>
-      {active
-      ?
       <Container>
         <Sidebar>
-          <button onClick={closeProfile}>
+          <a href='/'>
             <ArrowBackIcon
               sx={{
                 fontSize: 36,
                 color: "rgba(89, 61, 41, 0.85)",
               }}
             />
+          </a>
+          <a href='/'>
+            <button onClick={logoutFunc}>
+              <LogoutIcon sx={{
+                fontSize: 36,
+                color: "rgba(89, 61, 41, 0.85)",
+              }}/>
           </button>
-          <button onClick={logoutFunc}>
-            <LogoutIcon sx={{
-              fontSize: 36,
-              color: "rgba(89, 61, 41, 0.85)",
-            }}/>
-          </button>
+          </a>
         </Sidebar>
         <Course>
             <ThemesUl>
@@ -119,15 +127,12 @@ const Profile = ({active, setActive, logout, children}) => {
               <ThemeForm active={formActive} setActive={setFormActive}/>
             </ThemesUl>
             <ThemeContent>
-              {children}
+              
             </ThemeContent>
         </Course>
       </Container>
-      :
-      <></>
-      }
     </>
   )
 }
 
-export default Profile;
+export default ThemePage;
