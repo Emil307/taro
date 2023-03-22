@@ -44,7 +44,7 @@ const ThemesUl = styled.div`
   flex-direction: column;
   width: 40%;
   border-radius: 40px 0 0 40px;
-  padding-top: 20px;
+  padding-top: 15px;
   padding-left: 30px;
   padding-right: 20px;
   padding-bottom: 20px;

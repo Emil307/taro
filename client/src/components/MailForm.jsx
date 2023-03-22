@@ -5,7 +5,14 @@ import FormInput from '../UI/FormInput';
 import TextArea from '../UI/TextArea';
 import SubmitButton from '../UI/SubmitButton';
 
-function MailForm({active, setActive}) {
+const Title = styled.h3`
+  font-family: Inter, sans-serif;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 25px;
+`
+
+function MailForm({active, setActive, children}) {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
@@ -30,6 +37,7 @@ function MailForm({active, setActive}) {
 
   return (
     <Popup active={active} setActive={setActive}>
+      <Title>{children}</Title>
       <form onSubmit={submitForm}>
         <FormInput placeholder='E-mail*' type='email' name='email' value={email} onChange={event => setEmail(event.target.value)} required />
         <FormInput placeholder='Имя' type='text' name='name' value={name} onChange={event => setName(event.target.value)} />
