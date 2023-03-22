@@ -70,7 +70,10 @@ const ThemesUl = styled.div`
   }
 `
 
-const ThemeContent = styled.div``
+const ThemeContent = styled.div`
+  width: calc(60% - 15px);
+  padding: 15px;
+`
 
 function ThemePage() {
   const [formActive, setFormActive] = useState(false);
@@ -127,7 +130,13 @@ function ThemePage() {
               <ThemeForm active={formActive} setActive={setFormActive}/>
             </ThemesUl>
             <ThemeContent>
-              
+              {theme.videoUrl
+              ?
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/F3Lu0JZeCak" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+              :
+              <></>
+              }
+              {theme.title}
             </ThemeContent>
         </Course>
       </Container>
