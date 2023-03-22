@@ -21,7 +21,6 @@ const Title = styled.button`
   font-size: 18px;
   line-height: 24px;
   letter-spacing: .3px;
-  text-transform: capitalize;
 `
 
 function Theme(theme) {

@@ -75,6 +75,21 @@ const ThemeContent = styled.div`
   padding: 15px;
 `
 
+const Video = styled.iframe`
+  width: 100%;
+  height: 350px;
+  border-radius: 20px;
+`
+
+const Title = styled.h2`
+  font-family: Inter, sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+
+  margin-top: 20px;
+`
+
 function ThemePage() {
   const [formActive, setFormActive] = useState(false);
   const [role, setRole] = useState(useSelector(state => state.role));
@@ -101,6 +116,8 @@ function ThemePage() {
     dispatch({type: "SET_ISLOGIN", payload: false});
     localStorage.clear();
   }
+
+  const content = {__html: theme.content};
 
   return (
     <>
@@ -132,11 +149,12 @@ function ThemePage() {
             <ThemeContent>
               {theme.videoUrl
               ?
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/F3Lu0JZeCak" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+              <Video src="https://www.youtube.com/embed/F3Lu0JZeCak" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></Video>
               :
               <></>
               }
-              {theme.title}
+              <Title>{theme.title}</Title>
+              <div dangerouslySetInnerHTML={content}></div>
             </ThemeContent>
         </Course>
       </Container>
