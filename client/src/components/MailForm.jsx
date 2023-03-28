@@ -4,6 +4,7 @@ import Popup from '../UI/popup/Popup';
 import FormInput from '../UI/FormInput';
 import TextArea from '../UI/TextArea';
 import SubmitButton from '../UI/SubmitButton';
+import { useSelector } from 'react-redux';
 
 const Title = styled.h3`
   font-family: Inter, sans-serif;
@@ -18,11 +19,13 @@ function MailForm({active, setActive, children}) {
   const [surname, setSurname] = useState('');
   const [message, setMessage] = useState('');
 
+  const API = useSelector(state => state.api);
+
   function submitForm(event) {
     const formData = new FormData(event.target);
 
     event.preventDefault();
-    fetch("http://127.0.0.1:8000/api/v1/send-message/", {
+    fetch(API + "api/v1/send-message/", {
       method : 'POST',
       body : formData
     })

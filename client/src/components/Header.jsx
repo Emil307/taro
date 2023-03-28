@@ -61,6 +61,7 @@ const Header = () => {
 
   const dispatch = useDispatch();
   const token = useSelector(state => state.token);
+  const API = useSelector(state => state.api);
 
   useEffect(() => {
     setIsLogin(localStorage.getItem('isLogin'));
@@ -72,7 +73,7 @@ const Header = () => {
     const formData = new FormData(event.target);
 
     event.preventDefault();
-    fetch("http://127.0.0.1:8000/auth/token/login/", {
+    fetch(API + "auth/token/login/", {
       method : 'POST',
       body : formData
     })
@@ -87,7 +88,7 @@ const Header = () => {
   }
 
   function getUser(token) {
-    fetch("http://127.0.0.1:8000/api/v1/auth/users/me", {
+    fetch(API + "api/v1/auth/users/me", {
       method : 'GET',
       headers : {"Authorization": token}
     })
@@ -111,7 +112,7 @@ const Header = () => {
     const formData = new FormData(event.target);
 
     event.preventDefault();
-    fetch("http://127.0.0.1:8000/api/v1/auth/users/", {
+    fetch(API + "api/v1/auth/users/", {
       method : 'POST',
       body : formData
     })

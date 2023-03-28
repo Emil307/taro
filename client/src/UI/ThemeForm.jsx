@@ -6,7 +6,7 @@ import SubmitButton from "./SubmitButton.jsx";
 
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Form = styled.form``
 
@@ -22,11 +22,12 @@ function ThemeForm({active, setActive}) {
     const [isFree, setIsFree] = useState(false);
 
     const dispatch = useDispatch();
+    const API = useSelector(state => state.api);
 
     function submitForm(event) {
         const formData = new FormData(event.target);
 
-        fetch("http://127.0.0.1:8000/api/v1/themes", {
+        fetch(API + "api/v1/themes", {
             method : 'POST',
             body : formData
         })
