@@ -16,7 +16,7 @@ const Head = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  z-index: 1000;
+  z-index: 99;
 `
 
 const Button = styled.a`
@@ -62,6 +62,12 @@ const Header = () => {
   const dispatch = useDispatch();
   const token = useSelector(state => state.token);
 
+  useEffect(() => {
+    setIsLogin(localStorage.getItem('isLogin'));
+    setRole(localStorage.getItem('role'));
+    setProfileActive(localStorage.getItem('profile'));
+  }, [])
+
   function loginForm(event) {
     const formData = new FormData(event.target);
 
@@ -89,10 +95,13 @@ const Header = () => {
     .then (response => {
       response = JSON.parse(response);
       if (response) {
+        localStorage.setItem('isLogin', true);
+        localStorage.setItem('role', response.role);
+        setIsLogin(true);
         dispatch({type: "UPDATE_TOKEN", payload: token});
+        dispatch({type: "SET_ISLOGIN", payload: true});
         dispatch({type: "SET_ROLE", payload: response.role});
         setRole(response.role);
-        setIsLogin(true);
         setLoginPopupActive(false);
       }
     })
@@ -110,9 +119,14 @@ const Header = () => {
     .then (response => {
       response = JSON.parse(response);
       if (typeof response.id !== 'undefined') {
+        localStorage.setItem('isLogin', true);
+        localStorage.setItem('role', response.role);
         setIsLogin(true);
         setRegistrationPopupActive(false);
         console.log(response);
+        dispatch({type: "SET_ISLOGIN", payload: true});
+        dispatch({type: "SET_ROLE", payload: response.role});
+        setRole(response.role);
       } else if (response.email) {
         setError(response.email[0]);
       } else if (response.password) {
@@ -133,6 +147,11 @@ const Header = () => {
     setRegistrationPopupActive(false);
   }
 
+  function openProfile() {
+    setProfileActive(true);
+    localStorage.setItem('profile', true);
+  }
+
   return (
     <>
       <Head>
@@ -141,7 +160,7 @@ const Header = () => {
           ?
           <ul>
             <li>
-              <Button onClick={() => setProfileActive(true)}>в профиль</Button>
+              <Button onClick={openProfile}>в профиль</Button>
             </li>
           </ul>
           :
@@ -165,8 +184,8 @@ const Header = () => {
       </Popup>
       <Popup active={registrationPopupActive} setActive={setRegistrationPopupActive}>
         <form name="form-reg" className="loginRight" onSubmit={registrationForm}>
-          <FormInput placeholder="email" name="email" type="email" value={login} onChange={event => setLogin(event.target.value)}/>
-          <FormInput placeholder="Password" name="password" type="password" value={password} onChange={event => setPassword(event.target.value)}/>
+          <FormInput placeholder="email*" name="email" type="email" value={login} onChange={event => setLogin(event.target.value)}/>
+          <FormInput placeholder="Password*" name="password" type="password" value={password} onChange={event => setPassword(event.target.value)}/>
           <FormInput placeholder="Name" name="name" type="text" value={userName} onChange={event => setUserName(event.target.value)}/>
           <FormInput placeholder="Surname" name="surname" type="text" value={userSurname} onChange={event => setUserSurname(event.target.value)}/>
           <SubmitButton>Зарегистрироваться</SubmitButton>

@@ -1,10 +1,12 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useThemes } from '../hooks/useThemes';
+import { RoleContext } from '../components/Header';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import ThemesList from './ThemesList';
-import AddTheme from "../UI/AddTheme.jsx";
-import ThemeForm from "../UI/ThemeForm.jsx";
-import { RoleContext } from './Header.jsx';
-import { NameContext } from './Header.jsx';
+import ThemesList from '../components/ThemesList';
+import ThemeForm from '../UI/ThemeForm';
+import AddTheme from '../UI/AddTheme';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import LogoutIcon from '@mui/icons-material/Logout';
 
@@ -68,49 +70,75 @@ const ThemesUl = styled.div`
   }
 `
 
-const ThemeContent = styled.div``
+const ThemeContent = styled.div`
+  width: calc(60% - 15px);
+  padding: 20px;
+`
 
-const Profile = ({active, setActive, logout, children}) => {
+const Video = styled.iframe`
+  width: 100%;
+  height: 350px;
+  border-radius: 20px;
+`
+
+const Title = styled.h2`
+  font-family: Inter, sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+
+  margin-top: 20px;
+`
+
+function ThemePage() {
   const [formActive, setFormActive] = useState(false);
+  const [role, setRole] = useState(useSelector(state => state.role));
 
-  let role = useContext(RoleContext);
-  const name = useContext(NameContext);
+  const {id} = useParams();
+  const themes = useThemes().themes;
+  let theme = {};
+
+  const dispatch = useDispatch();
+  const isLogin = useSelector(state => state.isLogin);
+
+  useEffect(() => {
+    setRole(localStorage.getItem('role'));
+  }, [])
+ 
+  for (let i = 0; i < themes.length; i++) {
+    if (themes[i].id == id) {
+      theme = themes[i];
+      break;
+    }
+  }
+
   function logoutFunc() {
-    window.location.reload()
-    logout();
-    setActive(false);
+    dispatch({type: "SET_ISLOGIN", payload: false});
     localStorage.clear();
   }
 
-  useEffect(() => {
-    role = localStorage.getItem('role');
-  }, [])
-
-  function closeProfile() {
-    setActive(false);
-    localStorage.removeItem('profile');
-  }
+  const content = {__html: theme.content};
 
   return (
     <>
-      {active
-      ?
       <Container>
         <Sidebar>
-          <button onClick={closeProfile}>
+          <a href='/'>
             <ArrowBackIcon
               sx={{
                 fontSize: 36,
                 color: "rgba(89, 61, 41, 0.85)",
               }}
             />
+          </a>
+          <a href='/'>
+            <button onClick={logoutFunc}>
+              <LogoutIcon sx={{
+                fontSize: 36,
+                color: "rgba(89, 61, 41, 0.85)",
+              }}/>
           </button>
-          <button onClick={logoutFunc}>
-            <LogoutIcon sx={{
-              fontSize: 36,
-              color: "rgba(89, 61, 41, 0.85)",
-            }}/>
-          </button>
+          </a>
         </Sidebar>
         <Course>
             <ThemesUl>
@@ -119,15 +147,19 @@ const Profile = ({active, setActive, logout, children}) => {
               <ThemeForm active={formActive} setActive={setFormActive}/>
             </ThemesUl>
             <ThemeContent>
-              {children}
+              {theme.videoUrl
+              ?
+              <Video src="https://www.youtube.com/embed/F3Lu0JZeCak" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></Video>
+              :
+              <></>
+              }
+              <Title>{theme.title}</Title>
+              <div dangerouslySetInnerHTML={content}></div>
             </ThemeContent>
         </Course>
       </Container>
-      :
-      <></>
-      }
     </>
   )
 }
 
-export default Profile;
+export default ThemePage;

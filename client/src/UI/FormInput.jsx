@@ -15,9 +15,9 @@ const Input = styled.input`
   color: #000;
 `
 
-const FormInput = ({placeholder, name, type}) => {
+const FormInput = ({placeholder, name, type, required}) => {
   return (
-    <Input placeholder={placeholder} name={name} type={type}></Input>
+    <Input placeholder={placeholder} name={name} type={type} required={required}></Input>
   )
 }
 

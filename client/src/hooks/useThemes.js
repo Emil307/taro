@@ -15,6 +15,7 @@ export function useThemes() {
       });
 
       setThemes(response.data);
+      
     } catch(e) {
       console.log(e);
     }

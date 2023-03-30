@@ -2,11 +2,10 @@ from rest_framework import (generics, views)
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-from .serializers import UserSerializer, CourseSerializer, ThemeSerializer, EmailSerializer
+from .serializers import UserSerializer, CourseSerializer, ThemeSerializer
 from .models import User, Course, Theme
-from django.core.mail import send_mail
-from django.conf import settings
-
+from main.services import send_to_telegram
+from rest_framework.request import Request
 
 
 class UserRegistration(views.APIView):
@@ -24,6 +23,7 @@ class UserList(views.APIView):
     authentication_classes = [TokenAuthentication]
 
     def get(self, request):
+        print(request.user.is_authenticated)
         return Response({
             'users': UserSerializer(User.objects.all(), many=True).data
         })
@@ -49,21 +49,31 @@ class ThemesByCourseIdAPIView(generics.ListAPIView):
         return Theme.objects.filter(course_id=self.kwargs["pk"])
 
 
-class SendEmailView(views.APIView):
+class SendMessageView(views.APIView):
     permission_classes = [AllowAny]
-    serializer_class = EmailSerializer
+    authentication_classes = [TokenAuthentication]
 
-    def post(self, request):
+    def post(self, request: Request):
+        user: User
         data = request.data
-        print(data)
-        email_from = settings.EMAIL_HOST_USER
-        recipient_list = ['novikovemiel@yandex.ru']
-        send_mail(
-            'course',
-            data['message'],
-            email_from,
-            recipient_list
-        )
+        user = request.user
+        if user.is_authenticated:
+            message = {
+                "email": user.email,
+                "name": user.name,
+                "surname": user.surname,
+                "role": user.role
+            }
+        else:
+            message = dict(
+                name=data['name'],
+                surname=data['surname'],
+                email=data['email'],
+                message=data['message'],
+            )
+
+        send_to_telegram(message=message)        
+
         return Response(data={'result': 'ok'}, status=200)
 
 

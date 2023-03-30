@@ -137,12 +137,8 @@ USE_TZ = True
 
 AUTH_USER_MODEL = 'main.User'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'emilnovikov392@gmail.com'
-EMAIL_HOST_PASSWORD = '27062006EmilNovikov'
+TELEGRAM_TOKEN = "6153769002:AAGGxFolU6CMPIFL6u_WnrZjqVhvfdm2gB4"
+TELEGRAM_CHAT_ID = 1162748803
 
 
 # Static files (CSS, JavaScript, Images)
