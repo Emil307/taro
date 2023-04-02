@@ -4,7 +4,7 @@ const defaultState = {
   token: "",
   role: "",
   isLogin: false,
-  api: 'http://127.0.0.1:8000/',
+  api: 'https://courses-server.ru/',
 }
 
 const reducer = (state = defaultState, action) => {
