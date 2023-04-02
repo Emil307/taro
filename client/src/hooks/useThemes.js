@@ -7,10 +7,11 @@ export function useThemes() {
 
   const dispatch = useDispatch();
   const token = useSelector(state => state.token);
+  const API = useSelector(state => state.api);
 
   async function getThemes(token) {
     try {
-      const response = await axios.get("http://127.0.0.1:8000/api/v1/themes", {
+      const response = await axios.get(API + "api/v1/themes", {
         headers : {"Authorization": token}
       });
 
