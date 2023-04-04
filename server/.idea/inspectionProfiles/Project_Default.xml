@@ -1,0 +1,29 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="HtmlUnknownTarget" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="PyBroadExceptionInspection" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="PyPep8Inspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="E722" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyTypeCheckerInspection" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="gazprom.models.User.objects" />
+          <option value="server.authentication.models.GazpromUser.*" />
+          <option value="server.authentication.models.Well.objects" />
+          <option value="server.authentication.models.Checks.objects" />
+          <option value="authentication.models.GazpromUser.objects" />
+          <option value="authentication.models.Well.objects" />
+          <option value="authentication.models.Checks.objects" />
+          <option value="authentication.models.Check.objects" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
