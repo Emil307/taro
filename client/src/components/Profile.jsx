@@ -15,7 +15,7 @@ const Container = styled.div`
   top: 0;
   left: 0;
   background-color: #0F0C09;
-  z-index: 100;
+  z-index: 1000;
   padding: 15px;
   display: flex;
   justify-content: space-between;

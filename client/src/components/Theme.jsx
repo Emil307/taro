@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useSelector } from 'react-redux';
 import styled from "styled-components";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
@@ -27,10 +28,21 @@ const Title = styled.h3`
 function Theme(theme) {
   const [role, setRole] = useState(useSelector(state => state.role));
   const [active, setActive] = useState(false);
+  const [token, setToken] = useState(useSelector(state => state.token));
+
+  const API = useSelector(state => state.api);
 
   useEffect(() => {
     setRole(localStorage.getItem('role'));
+    setToken(localStorage.getItem('token'));
   }, []);
+
+  async function deleteTheme() {
+    await axios.delete(API + "api/v1/delete-theme/" + theme.theme.id, {
+      headers : {"Authorization": token}
+    });
+    location.reload();
+  }
 
   return (
     <>
@@ -45,7 +57,7 @@ function Theme(theme) {
           </a>
           {role === "admin"
           ?
-          <button>
+          <button onClick={deleteTheme}>
             <DeleteOutlineIcon sx={{
               fontSize: 20,
               color: "rgba(89, 61, 41, 0.85)",
@@ -61,17 +73,6 @@ function Theme(theme) {
             <button onClick={() => setActive(true)}>
               <Title>{theme.theme.title}</Title>
             </button>
-            {role === "admin"
-            ?
-            <button>
-              <DeleteOutlineIcon sx={{
-                fontSize: 20,
-                color: "rgba(89, 61, 41, 0.85)",
-              }}/>
-            </button>
-            :
-            <></>
-            }
           </Container>
       </>
       }

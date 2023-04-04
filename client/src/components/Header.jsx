@@ -16,7 +16,7 @@ const Head = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  z-index: 99;
+  z-index: 101;
 `
 
 const Button = styled.a`
@@ -98,6 +98,7 @@ const Header = () => {
       if (response) {
         localStorage.setItem('isLogin', true);
         localStorage.setItem('role', response.role);
+        localStorage.setItem('token', token);
         setIsLogin(true);
         dispatch({type: "UPDATE_TOKEN", payload: token});
         dispatch({type: "SET_ISLOGIN", payload: true});
