@@ -1,6 +1,12 @@
 import React from 'react';
 import styled from "styled-components";
 
+const Section =styled.section`
+  width: 100%;
+  background-color: #131313;
+  z-index: 101;
+`
+
 const Container = styled.div`
   width: 100%;
   max-width: 960px;
@@ -67,26 +73,28 @@ const ItemText = styled.p``
 
 function CA() {
     return (
-        <Container>
-            <Title>кому подойдёт этот курс</Title>
-            <Wrapper>
-                <Item>
-                    <ItemImageBG>
-                      <ItemImage/>
-                      <ItemTitleBG>
-                        <ItemTitle>Новичку</ItemTitle>
-                      </ItemTitleBG>
-                    </ItemImageBG>
-                    <ItemInfo>
-                      <ItemText>
-                        Если вы еще никогда не работали с таро. В ходе курса вы получите профессию, а также сэкономите кучу времени и сил, не пытаясь разобраться самостоятельно
-                      </ItemText>
-                    </ItemInfo>
-                </Item>
-                <Item></Item>
-                <Item></Item>
-            </Wrapper>
-        </Container>
+        <Section>
+          <Container>
+              <Title>кому подойдёт этот курс</Title>
+              <Wrapper>
+                  <Item>
+                      <ItemImageBG>
+                        <ItemImage/>
+                        <ItemTitleBG>
+                          <ItemTitle>Новичку</ItemTitle>
+                        </ItemTitleBG>
+                      </ItemImageBG>
+                      <ItemInfo>
+                        <ItemText>
+                          Если вы еще никогда не работали с таро. В ходе курса вы получите профессию, а также сэкономите кучу времени и сил, не пытаясь разобраться самостоятельно
+                        </ItemText>
+                      </ItemInfo>
+                  </Item>
+                  <Item></Item>
+                  <Item></Item>
+              </Wrapper>
+          </Container>
+        </Section>
     );
 }
 

@@ -27,3 +27,11 @@
   font-family: 'Alegreya SC';
   font-weight: 500;
 }
+
+@font-face {
+  src: url('../fonts/Montserrat-Medium.woff2') format('woff2'),
+      url('../fonts/Montserrat-Medium.woff') format('woff'),
+      url('../fonts/Montserrat-Medium.ttf') format('truetype');
+  font-family: 'Montserrat';
+  font-weight: 500;
+}
