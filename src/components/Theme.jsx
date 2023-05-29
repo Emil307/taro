@@ -7,6 +7,10 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import EditIcon from '@mui/icons-material/Edit';
 import MailForm from './MailForm';
 
+const Button = styled.button`
+  width: 100%;
+`
+
 const Container = styled.div`
   position: relative;
   display: flex;
@@ -73,6 +77,11 @@ function Theme(theme) {
     setToken(localStorage.getItem('token'));
   }, []);
 
+  function redirect() {
+    const link = '/themes' + '/' + theme.theme.id;
+    window.location.href = link;
+  }
+
   async function deleteTheme() {
     await axios.delete(API + "api/v1/themes/" + theme.theme.id, {
       headers : {"Authorization": token}
@@ -91,52 +100,52 @@ function Theme(theme) {
       </MailForm>
       {theme.theme.isFree || role === 'student' || role === 'admin'
       ?
-        <Container>
-          <a href={'/themes' + '/' + theme.theme.id}>
+        <Button onClick={redirect}>
+          <Container>
             <Title>{theme.theme.title}</Title>
-          </a>
-          {role === "admin"
-          ?
-          <>
-            <button onClick={openSelect}>
-              <MoreHorizIcon sx={{
-                fontSize: 24,
-                color: "rgba(89, 61, 41, 0.85)"}}
-              />
-            </button>
-            {selectValue 
-              ? 
-              <SelectContent>
-                <SelectItemEdit href={'/edit-theme/' + theme.theme.id}>
-                  <SelectText>Изменить тему</SelectText>
-                  <EditIcon sx={{
+            {role === "admin"
+            ?
+            <>
+              <button onClick={openSelect}>
+                <MoreHorizIcon sx={{
+                  fontSize: 24,
+                  color: "rgba(89, 61, 41, 0.85)"}}
+                />
+              </button>
+              {selectValue 
+                ? 
+                <SelectContent>
+                  <SelectItemEdit href={'/edit-theme/' + theme.theme.id}>
+                    <SelectText>Изменить тему</SelectText>
+                    <EditIcon sx={{
+                        fontSize: 18,
+                        color: "rgba(89, 61, 41, 0.85)",
+                    }}/>
+                  </SelectItemEdit>
+                  <SelectItemDelete onClick={deleteTheme}>
+                    <SelectText>Удалить тему</SelectText>
+                    <DeleteOutlineIcon sx={{
                       fontSize: 18,
                       color: "rgba(89, 61, 41, 0.85)",
-                  }}/>
-                </SelectItemEdit>
-                <SelectItemDelete onClick={deleteTheme}>
-                  <SelectText>Удалить тему</SelectText>
-                  <DeleteOutlineIcon sx={{
-                    fontSize: 18,
-                    color: "rgba(89, 61, 41, 0.85)",
-                  }}/>
-                </SelectItemDelete>
-              </SelectContent> 
-              :
-              <></>
+                    }}/>
+                  </SelectItemDelete>
+                </SelectContent> 
+                :
+                <></>
+              }
+            </>
+            :
+            <></>
             }
-          </>
-          :
-          <></>
-          }
-        </Container>
+          </Container>
+        </Button>
       :
       <>
+        <Button onClick={() => setActive(true)}>
           <Container>
-            <button onClick={() => setActive(true)}>
-              <Title>{theme.theme.title}</Title>
-            </button>
+            <Title>{theme.theme.title}</Title>
           </Container>
+          </Button>
       </>
       }
     </>
