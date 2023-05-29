@@ -113,7 +113,7 @@ const Header = () => {
     event.preventDefault();
     fetch(API + "api/v1/auth/users/", {
       method : 'POST',
-      body : formData
+      body : formData,
     })
     .then (response => response.text())
     .then (response => {
