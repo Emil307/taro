@@ -1,0 +1,27 @@
+.popup {
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: .3s;
+  z-index: 100000;
+}
+
+.popup.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.popup__content {
+  width: calc(430px - 72px);
+  border-radius: 10px;
+  padding: 36px;
+  background: #fff;
+}

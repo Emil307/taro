@@ -1,0 +1,45 @@
+@font-face {
+  src: url('../fonts/Inter-Light.woff2') format('woff2'),
+      url('../fonts/Inter-Light.woff') format('woff'),
+      url('../fonts/Inter-Light.ttf') format('truetype');
+  font-family: 'Inter';
+  font-weight: 300;
+}
+
+@font-face {
+  src: url('../fonts/Inter-Regular.woff2') format('woff2'),
+      url('../fonts/Inter-Regular.woff') format('woff'),
+      url('../fonts/Inter-Regular.ttf') format('truetype');
+  font-family: 'Inter';
+  font-weight: 400;
+}
+
+@font-face {
+  src: url('../fonts/Inter-Bold.woff2') format('woff2'),
+      url('../fonts/Inter-Bold.woff') format('woff'),
+      url('../fonts/Inter-Bold.ttf') format('truetype');
+  font-family: 'Inter';
+  font-weight: 700;
+}
+
+@font-face {
+  src: url('../fonts/AlegreyaSC-Medium.ttf') format('truetype');
+  font-family: 'Alegreya SC';
+  font-weight: 500;
+}
+
+@font-face {
+  src: url('../fonts/Montserrat-Medium.woff2') format('woff2'),
+      url('../fonts/Montserrat-Medium.woff') format('woff'),
+      url('../fonts/Montserrat-Medium.ttf') format('truetype');
+  font-family: 'Montserrat';
+  font-weight: 500;
+}
+
+@font-face {
+  src: url('../fonts/Montserrat-Regular.woff2') format('woff2'),
+      url('../fonts/Montserrat-Regular.woff') format('woff'),
+      url('../fonts/Montserrat-Regular.ttf') format('truetype');
+  font-family: 'Montserrat';
+  font-weight: 400;
+}
